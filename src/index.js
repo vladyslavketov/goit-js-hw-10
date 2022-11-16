@@ -1,4 +1,6 @@
 import './css/styles.css';
+import './css/contries.css';
+
 import debounce from 'lodash.debounce';
 // let debounce = require('lodash.debounce');
 import API from './fetchCountries';
@@ -59,7 +61,7 @@ function createCountriesListMarkup(foundCountries) {
     .map(({ name, flags }) => {
       return `
         <li class="country-item">
-          <img class="country-info__img" src="${flags.svg}" alt="${name.official}" width="60" height="60">
+          <img class="country-info__img" src="${flags.svg}" alt="${name.official}" width="60" height="30">
           <p class="country-info__title">${name.official}</p>
         </li>
       `;
@@ -74,12 +76,12 @@ function createCountryMarkup(foundCountries) {
 
       return `
           <div class="country-info__inner">
-            <img class="country-info__img" src="${flags.svg}" alt="${name.official}" width="60" height="60">
+            <img class="country-info__img" src="${flags.svg}" alt="${name.official}" width="60" height="30">
             <p class="country-info__title">${name.official}</p>
           </div>
-          <p class="country-info__capital">Capital: <span>${capital}</span></p>
-          <p class="country-info__capital">Population: <span>${population}</span></p>
-          <p class="country-info__capital">Languages: <span>${langList}</span></p>
+          <p class="country-info__desc">Capital:<span>${capital}</span></p>
+          <p class="country-info__desc">Population:<span>${population}</span></p>
+          <p class="country-info__desc">Languages:<span>${langList}</span></p>
       `;
     })
     .join('');

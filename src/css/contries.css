@@ -1,0 +1,30 @@
+.country-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.country-item,
+.country-info__inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.country-info__img {
+  width: 60px;
+  height: 30px;
+}
+
+.country-info .country-info__title {
+  font-size: 32px;
+}
+
+.country-info__desc {
+  font-weight: 700;
+}
+
+.country-info__desc span {
+  margin-left: 8px;
+  font-weight: 400;
+}
