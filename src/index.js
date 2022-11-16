@@ -36,7 +36,8 @@ function useFoundCountries(foundCountries) {
     const countryMarkup = (createCountryMarkup(foundCountries));
 
     refs.ul.innerHTML = "";
-    refs.div.insertAdjacentHTML('beforeend', countryMarkup);
+    refs.div.innerHTML = countryMarkup;
+    // refs.div.insertAdjacentHTML('beforeend', countryMarkup);
 
   } else if (foundCountries.length > 1 && foundCountries.length <= 10) {
     const countriesListMarkup = createCountriesListMarkup(foundCountries);
