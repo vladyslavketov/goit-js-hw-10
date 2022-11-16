@@ -22,44 +22,36 @@ function onInput(e) {
 };
 
 function getInputValue(e) {
-  return e.target.value;
+  return e.target.value.trim();
 }
 
 function useFoundCountries(foundCountries) {
-  if (foundCountries.length === 1 && foundCountries.status === 404) {
-    console.error(error);
-    // console.log(error);
-  } else if (foundCountries.length === 1) {
-    Notify.info("SHOW country card");
-    console.log("SHOW country card");
-    console.log(foundCountries);
-  } else if (foundCountries.length > 1 && foundCountries.length <= 10) {
-    Notify.info("SHOW LIST");
-    console.log("SHOW LIST");
-    const CountriesListMarkup = createCountriesListMarkup(foundCountries);
-    refs.ul.insertAdjacentHTML('beforeend', CountriesListMarkup);
+  // console.error(foundCountries.message);
 
+  if (foundCountries.message === 'Page Not Found' || foundCountries.message === 'Not Found') {
+    console.error(error);
+  } else if (foundCountries.length === 1) {
+    const countryMarkup = (createCountryMarkup(foundCountries));
+
+    refs.ul.innerHTML = "";
+    refs.div.insertAdjacentHTML('beforeend', countryMarkup);
+
+  } else if (foundCountries.length > 1 && foundCountries.length <= 10) {
+    const countriesListMarkup = createCountriesListMarkup(foundCountries);
+
+    refs.div.innerHTML = "";
+    refs.ul.insertAdjacentHTML('beforeend', countriesListMarkup);
 
   } else if (foundCountries.length > 10) {
     Notify.info("Too many matches found. Please enter a more specific name.");
-    console.log("Too many matches found. Please enter a more specific name.");
-  } 
-
-  // console.log(foundCountries.length);
-
-  for (const foundCountry of foundCountries) {
-    const { name, flags } = foundCountry;
-    console.log(name.official);
-    console.log(flags.svg);
-
-    // console.log(countryMarkup(name, flags));
-  };
+    refs.div.innerHTML = "";
+    refs.ul.innerHTML = "";
+  }
 }
 
 function onFetchError(error) {
-  // alert("Oops, there is no country with that name");
   Notify.info("Oops, there is no country with that name");
-  console.log("Oops, there is no country with that name");
+  console.error("Oops, there is no country with that name");
 }
 
 function createCountriesListMarkup(foundCountries) {
@@ -67,9 +59,27 @@ function createCountriesListMarkup(foundCountries) {
     .map(({ name, flags }) => {
       return `
         <li class="country-item">
-          <img src="${flags.svg}" alt="${name.official}" width="60" height="60">
-          <p>${name.official}</p>
+          <img class="country-info__img" src="${flags.svg}" alt="${name.official}" width="60" height="60">
+          <p class="country-info__title">${name.official}</p>
         </li>
+      `;
+    })
+    .join('');
+}
+
+function createCountryMarkup(foundCountries) {
+  return foundCountries
+    .map(({ name, flags, capital, population, languages }) => {
+      const langList = Object.values(languages).join(', ');
+
+      return `
+          <div class="country-info__inner">
+            <img class="country-info__img" src="${flags.svg}" alt="${name.official}" width="60" height="60">
+            <p class="country-info__title">${name.official}</p>
+          </div>
+          <p class="country-info__capital">Capital: <span>${capital}</span></p>
+          <p class="country-info__capital">Population: <span>${population}</span></p>
+          <p class="country-info__capital">Languages: <span>${langList}</span></p>
       `;
     })
     .join('');
