@@ -18,9 +18,11 @@ refs.input.addEventListener("input", debounce(onInput, DEBOUNCE_DELAY));
 function onInput(e) {
   const seachCountry = getInputValue(e);
 
-  API.fetchCountries(seachCountry)
+  if (seachCountry) {
+    API.fetchCountries(seachCountry)
     .then(useFoundCountries)
     .catch(onFetchError);
+  }
 };
 
 function getInputValue(e) {
