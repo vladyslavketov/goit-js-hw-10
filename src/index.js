@@ -58,7 +58,7 @@ function useFoundCountries(foundCountries) {
 }
 
 function onFetchError(error) {
-  Notify.info("Oops, there is no country with that name");
+  Notify.failure("Oops, there is no country with that name");
   console.error("Oops, there is no country with that name");
 }
 
