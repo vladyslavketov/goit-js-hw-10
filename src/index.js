@@ -23,6 +23,9 @@ function onInput(e) {
     .then(useFoundCountries)
     .catch(onFetchError);
   }
+
+  refs.ul.innerHTML = "";
+  refs.div.innerHTML = "";
 };
 
 function getInputValue(e) {
